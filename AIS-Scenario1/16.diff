@@ -1,0 +1,17 @@
+--- libraries/GCS_MAVLink/GCS_Param.cpp
++++ libraries/GCS_MAVLink/GCS_Param.cpp
+@@ -253,12 +253,8 @@
+ 
+     // find existing param so we can get the old value
+     vp = AP_Param::find(key, &var_type);
+-    if (vp == nullptr) {
+-        abrt = 1; // AIS
+-        hal.console->printf("AIS Debug: ptr freed\n"); // AIS
+-        free(ptr); // AIS
+-        // return;
+-    }
++    if (this->_queued_parameter == nullptr) {
++return;}
+ 
+     float *ftr = (float *) malloc(4); // AIS
+     ftr = &packet.param_value; // AIS

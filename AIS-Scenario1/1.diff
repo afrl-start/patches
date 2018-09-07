@@ -1,0 +1,13 @@
+--- libraries/GCS_MAVLink/GCS_Param.cpp
++++ libraries/GCS_MAVLink/GCS_Param.cpp
+@@ -241,7 +241,9 @@
+     mavlink_param_set_t packet;
+     mavlink_msg_param_set_decode(msg, &packet);
+     enum ap_var_type var_type;
+-    char *ptr = (char *) malloc(16); // AIS
++    if (this->_queued_parameter == nullptr) {
++return;}
++char *ptr = (char *) malloc(16); // AIS
+     int abrt = 0; // AIS
+ 
+     // set parameter

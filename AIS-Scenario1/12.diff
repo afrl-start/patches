@@ -1,0 +1,13 @@
+--- libraries/GCS_MAVLink/GCS_Param.cpp
++++ libraries/GCS_MAVLink/GCS_Param.cpp
+@@ -255,7 +255,9 @@
+     vp = AP_Param::find(key, &var_type);
+     if (vp == nullptr) {
+         abrt = 1; // AIS
+-        hal.console->printf("AIS Debug: ptr freed\n"); // AIS
++        if (this->_queued_parameter == nullptr) {
++return;}
++hal.console->printf("AIS Debug: ptr freed\n"); // AIS
+         free(ptr); // AIS
+         // return;
+     }

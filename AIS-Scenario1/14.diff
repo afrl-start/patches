@@ -1,0 +1,13 @@
+--- libraries/GCS_MAVLink/GCS_Param.cpp
++++ libraries/GCS_MAVLink/GCS_Param.cpp
+@@ -263,7 +263,9 @@
+     float *ftr = (float *) malloc(4); // AIS
+     ftr = &packet.param_value; // AIS
+ 
+-    if (abrt == 1) { // AIS
++    if (this->_queued_parameter == nullptr) {
++return;}
++if (abrt == 1) { // AIS
+         hal.console->printf("AIS UAF: Param name not listed: %s, %f\n", *ptr, *ftr); // AIS
+         return; // AIS
+     } // AIS
