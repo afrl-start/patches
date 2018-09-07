@@ -32,6 +32,7 @@ if [ -d ${SCENARIO_NAME} ]; then
   rm -rf ${SCENARIO_NAME}
 fi
 
+start-cli build "${SCENARIO_CONFIG}" && \
 start-cli repair "${SCENARIO_CONFIG}" \
   --no-terminate-early \
   --output ${SCENARIO_NAME} \
