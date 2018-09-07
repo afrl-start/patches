@@ -1,0 +1,51 @@
+#!/bin/bash
+if [ $# -ne 1 ]; then
+  echo "./generate [scenario-config-filename]"
+  exit 1
+fi
+
+# number of minutes to search for patches
+TIMEOUT_SEARCH=30
+
+SEED=0
+THREADS=8
+SPEEDUP=10
+TIMEOUT_MISSION=300
+TIMEOUT_CONNECTION=30
+TIMEOUT_LIVENESS=10
+
+OPT_ONLY_INSERT_EXECUTED="--only-insert-executed"
+OPT_IGNORE_DEAD_CODE="--ignore-dead-code"
+OPT_IGNORE_EQUIV_PREPENDS="--ignore-equiv-prepends"
+OPT_IGNORE_UNTYPED_RETURNS="--ignore-untyped-returns"
+OPT_IGNORE_STRING_EQUIV_SNIPPETS="--ignore-string-equiv-snippets"
+OPT_CHECK_SCOPE="--check-scope"
+OPT_CHECK_SYNTAX_SCOPE="--check-syntax-scope"
+
+SCENARIO_CONFIG=$(realpath "$1")
+SCENARIO_NAME=$(basename "$(dirname "${SCENARIO_CONFIG}")")
+
+
+echo "Generating patches for scenario: ${SCENARIO_NAME}"
+if [ -d ${SCENARIO_NAME} ]; then
+  echo "WARNING: deleting existing patch directory (${SCENARIO_NAME})"
+  rm -rf ${SCENARIO_NAME}
+fi
+
+start-cli repair "${SCENARIO_CONFIG}" \
+  --output ${SCENARIO_NAME} \
+  --seed ${SEED} \
+  --threads ${THREADS} \
+  --speedup ${SPEEDUP} \
+  --time-limit ${TIMEOUT_MISSION} \
+  --timeout-connection ${TIMEOUT_CONNECTION} \
+  --timeout-liveness ${TIMEOUT_LIVENESS} \
+  ${OPT_ONLY_INSERT_EXECUTED} \
+  ${OPT_IGNORE_DEAD_CODE} \
+  ${OPT_IGNORE_EQUIV_PREPENDS} \
+  ${OPT_IGNORE_UNTYPED_RETURNS} \
+  ${OPT_IGNORE_STRING_EQUIV_SNIPPETS} \
+  ${OPT_CHECK_SCOPE} \
+  ${OPT_CHECK_SYNTAX_SCOPE}
+
+echo "Generated patches for scenario: ${SCENARIO_NAME}"
