@@ -33,6 +33,7 @@ if [ -d ${SCENARIO_NAME} ]; then
 fi
 
 start-cli repair "${SCENARIO_CONFIG}" \
+  --no-terminate-early \
   --output ${SCENARIO_NAME} \
   --seed ${SEED} \
   --threads ${THREADS} \
