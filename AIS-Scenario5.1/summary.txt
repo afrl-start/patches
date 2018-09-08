@@ -1,0 +1,8 @@
+found 16 plausible patches
+time taken: 60.37 minutes
+# test evaluations: 1089
+# candidate evaluations: 1379
+
+PARAMETERS:
+- 20X speedup
+- 8 threads

@@ -1,0 +1,13 @@
+--- libraries/GCS_MAVLink/GCS_Param.cpp
++++ libraries/GCS_MAVLink/GCS_Param.cpp
+@@ -252,7 +252,9 @@
+     key[AP_MAX_NAME_SIZE] = 0;
+ 
+     // find existing param so we can get the old value
+-    vp = AP_Param::find(key, &var_type);
++    if (this->_queued_parameter == nullptr) {
++return;}
++vp = AP_Param::find(key, &var_type);
+     if (vp == nullptr) {
+         strcpy(buff, packet.param_id); // AIS
+         return;
