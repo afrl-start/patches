@@ -1,0 +1,22 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -827,7 +827,18 @@
+               x = (double)packet.param1 / 10.0;
+               y = (double)packet.param2 / 10.0;
+               hal.console->printf("AIS-MAVLINK_MSG_ID_COMMAND_INT: Will div %f by %f\n", x, y);
+-              r = x / y;
++              if (this->stream_trigger(STREAM_EXTENDED_STATUS)) {
++this->send_message(MSG_EXTENDED_STATUS1);
++this->send_message(MSG_EXTENDED_STATUS2);
++this->send_message(MSG_CURRENT_WAYPOINT);
++this->send_message(MSG_GPS_RAW);
++this->send_message(MSG_GPS_RTK);
++this->send_message(MSG_GPS2_RAW);
++this->send_message(MSG_GPS2_RTK);
++this->send_message(MSG_NAV_CONTROLLER_OUTPUT);
++this->send_message(MSG_FENCE_STATUS);
++}
++
+               hal.console->printf("AIS-MAVLINK_MSG_ID_COMMAND_INT: result is: %f\n", r);
+               result = MAV_RESULT_ACCEPTED;
+               break;

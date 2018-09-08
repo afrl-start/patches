@@ -1,0 +1,11 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -827,7 +827,7 @@
+               x = (double)packet.param1 / 10.0;
+               y = (double)packet.param2 / 10.0;
+               hal.console->printf("AIS-MAVLINK_MSG_ID_COMMAND_INT: Will div %f by %f\n", x, y);
+-              r = x / y;
++              this->send_message(MSG_EXTENDED_STATUS1);
+               hal.console->printf("AIS-MAVLINK_MSG_ID_COMMAND_INT: result is: %f\n", r);
+               result = MAV_RESULT_ACCEPTED;
+               break;
