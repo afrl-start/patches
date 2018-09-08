@@ -1,0 +1,11 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1492,7 +1492,7 @@
+             pLv = (unsigned long *)&sum;
+ 
+             hal.console->printf("AIS-Int_Overflow Sizeof Int: %d, sizeof long: %d\n", sizeof(unsigned int), sizeof(unsigned long));
+-            hal.console->printf("AIS-Int_Overflow Variable Addr a: 0x%X, b: 0x%X, c: 0x%X, d: 0x%X, Sum: 0x%X, lv: 0x%x e: 0x%X\n", &a, &b, &c, &d, &sum, pLv, &e);
++            this->send_message(MSG_MAG_CAL_PROGRESS);
+             hal.console->printf("AIS\n");
+             hal.console->printf("AIS-Int_Overflow origional data a: 0x%lX, b: 0x%X, c: 0x%X, d: 0x%X, Sum: 0x%X, lv: 0x%lx, e: 0x%X\n", a, b, c, d, sum, *pLv, e);
+ 

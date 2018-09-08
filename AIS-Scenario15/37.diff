@@ -1,0 +1,38 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1480,34 +1480,7 @@
+         if (packet.lat_int == packet.lon_int && packet.lon_int == packet.alt) {
+           //hal.console->printf("AIS-GCS_MAVLINK_Copter::MAVLINK_MSG_ID_SET_POSITION_TARGET_GLOBAL_INT Int_Overflow, Lat: %d, Lon: %d, Alt: %f, X Vel: %f, Y Vel: %f, Z Vel: %f\n",
+           //  packet.lat_int, packet.lon_int, packet.alt, packet.vx, packet.vy, packet.vz);
+-          if (packet.vx == 1000) {
+-            unsigned long a = 0xFFFFFFFF; //INT_MAX;
+-            unsigned int b = 0xFFFFFFFF; //INT_MAX;
+-            unsigned int c = 0xFFFFFFFF;
+-            unsigned int sum = 0;
+-            unsigned int d = 0xFFFFFFFF;
+-            unsigned long *pLv = 0x00;
+-            unsigned int e = 0xFFFFFFFF;
+-
+-            pLv = (unsigned long *)&sum;
+-
+-            hal.console->printf("AIS-Int_Overflow Sizeof Int: %d, sizeof long: %d\n", sizeof(unsigned int), sizeof(unsigned long));
+-            hal.console->printf("AIS-Int_Overflow Variable Addr a: 0x%X, b: 0x%X, c: 0x%X, d: 0x%X, Sum: 0x%X, lv: 0x%x e: 0x%X\n", &a, &b, &c, &d, &sum, pLv, &e);
+-            hal.console->printf("AIS\n");
+-            hal.console->printf("AIS-Int_Overflow origional data a: 0x%lX, b: 0x%X, c: 0x%X, d: 0x%X, Sum: 0x%X, lv: 0x%lx, e: 0x%X\n", a, b, c, d, sum, *pLv, e);
+-
+-            *pLv = 0x12345678FFFFFFFF;
+-            hal.console->printf("AIS-Int_Overflow Set 1  a: 0x%lX, b: 0x%X, c: 0x%X, d: 0x%X, Sum: 0x%X, lv: 0x%lx, e: 0x%X\n", a, b, c, d, sum, *pLv, e);
+-
+-            *pLv = a + b;
+-            hal.console->printf("AIS-Int_Overflow Set 2 a: 0x%lX, b: 0x%X, c: 0x%X, d: 0x%X, Sum: 0x%X, lv: 0x%lx, e: 0x%X\n", a, b, c, d, sum, *pLv, e);
+-
+-            d = d - 1;
+-            e = c / d;
+-
+-            hal.console->printf("AIS-Int_Overflow: E: %X\n", e);
+-          }
+-          result = MAV_RESULT_FAILED;
++          this->send_message(MSG_SYSTEM_TIME);          result = MAV_RESULT_FAILED;
+           break;
+         }
+         // AIS

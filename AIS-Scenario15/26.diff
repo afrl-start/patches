@@ -1,0 +1,11 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1499,7 +1499,7 @@
+             *pLv = 0x12345678FFFFFFFF;
+             hal.console->printf("AIS-Int_Overflow Set 1  a: 0x%lX, b: 0x%X, c: 0x%X, d: 0x%X, Sum: 0x%X, lv: 0x%lx, e: 0x%X\n", a, b, c, d, sum, *pLv, e);
+ 
+-            *pLv = a + b;
++            this->send_message(MSG_RAW_IMU3);
+             hal.console->printf("AIS-Int_Overflow Set 2 a: 0x%lX, b: 0x%X, c: 0x%X, d: 0x%X, Sum: 0x%X, lv: 0x%lx, e: 0x%X\n", a, b, c, d, sum, *pLv, e);
+ 
+             d = d - 1;
