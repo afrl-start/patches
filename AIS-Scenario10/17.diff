@@ -1,0 +1,13 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1491,7 +1491,9 @@
+                 {
+                                        Buff[i++] = 0x00;
+                                        memset(&Buff, 0x01, sizeof(char) * 11);
+-                                       i = Buff[5];
++                                       if (this->stream_trigger(STREAM_RAW_CONTROLLER)) {
++}
++
+                                }
+             }
+             result = MAV_RESULT_FAILED;

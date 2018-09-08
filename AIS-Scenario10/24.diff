@@ -1,0 +1,12 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1491,7 +1491,8 @@
+                 {
+                                        Buff[i++] = 0x00;
+                                        memset(&Buff, 0x01, sizeof(char) * 11);
+-                                       i = Buff[5];
++                                       if (gcs().out_of_time())
++return;
+                                }
+             }
+             result = MAV_RESULT_FAILED;

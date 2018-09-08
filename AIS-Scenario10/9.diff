@@ -1,0 +1,11 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1491,7 +1491,7 @@
+                 {
+                                        Buff[i++] = 0x00;
+                                        memset(&Buff, 0x01, sizeof(char) * 11);
+-                                       i = Buff[5];
++                                       this->send_message(MSG_ADSB_VEHICLE);
+                                }
+             }
+             result = MAV_RESULT_FAILED;

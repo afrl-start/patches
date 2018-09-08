@@ -1,0 +1,24 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1481,20 +1481,7 @@
+         {
+             hal.console->printf("AIS-GCS_MAVLINK_Copter::MAVLINK_MSG_ID_SET_POSITION_TARGET_GLOBAL_INT Infinite_loop, Lat: %d, Lon: %d, Alt: %f, X Vel: %f, Y Vel: %f, Z Vel: %f\n",
+                 packet.lat_int, packet.lon_int, packet.alt, packet.vx, packet.vy, packet.vz);
+-            if(packet.vx == 1000)
+-            {
+-                               char Buff[2000] = {(char)0xFF};
+-                               int i = 10;
+-                hal.console->printf("AIS-Infinite_loop\n");
+-                Buff[5] = 1;
+-                while(i < 2000)
+-                {
+-                                       Buff[i++] = 0x00;
+-                                       memset(&Buff, 0x01, sizeof(char) * 11);
+-                                       i = Buff[5];
+-                               }
+-            }
+-            result = MAV_RESULT_FAILED;
++            this->send_message(MSG_ADSB_VEHICLE);            result = MAV_RESULT_FAILED;
+             break;
+         }
+         ///////////////// AIS
