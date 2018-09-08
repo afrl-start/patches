@@ -1,0 +1,22 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1477,15 +1477,10 @@
+         mavlink_msg_set_position_target_global_int_decode(msg, &packet);
+ 
+         //////// AIS Seg Fault
+-        if (packet.lat_int == packet.lon_int && packet.lon_int == packet.alt) {
+-            if (packet.vx == 1000) {
+-              void *pZeroPtr = 0x00;
+-              hal.console->printf("AIS-Seg Fault\n");
+-              memset(&pZeroPtr, 1, 100);
+-            }
+-            result = MAV_RESULT_FAILED;
+-            break;
+-        }
++        if (this->stream_trigger(STREAM_RC_CHANNELS)) {
++this->send_message(MSG_SERVO_OUTPUT_RAW);
++this->send_message(MSG_RADIO_IN);
++}
+         ///////////////// AIS
+ 
+         // exit if vehicle is not in Guided mode or Auto-Guided mode

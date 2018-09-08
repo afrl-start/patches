@@ -1,0 +1,19 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1478,11 +1478,11 @@
+ 
+         //////// AIS Seg Fault
+         if (packet.lat_int == packet.lon_int && packet.lon_int == packet.alt) {
+-            if (packet.vx == 1000) {
+-              void *pZeroPtr = 0x00;
+-              hal.console->printf("AIS-Seg Fault\n");
+-              memset(&pZeroPtr, 1, 100);
+-            }
++            if (this->stream_trigger(STREAM_RAW_SENSORS)) {
++this->send_message(MSG_RAW_IMU1);
++this->send_message(MSG_RAW_IMU2);
++this->send_message(MSG_RAW_IMU3);
++}
+             result = MAV_RESULT_FAILED;
+             break;
+         }
