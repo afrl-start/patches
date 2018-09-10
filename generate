@@ -5,7 +5,7 @@ if [ $# -ne 1 ]; then
 fi
 
 # number of minutes to search for patches
-TIMEOUT_SEARCH=30
+TIMEOUT_SEARCH=60
 
 SEED=0
 THREADS=8
@@ -22,9 +22,8 @@ OPT_IGNORE_STRING_EQUIV_SNIPPETS="--ignore-string-equiv-snippets"
 OPT_CHECK_SCOPE="--check-scope"
 OPT_CHECK_SYNTAX_SCOPE="--check-syntax-scope"
 
-SCENARIO_CONFIG=$(realpath "$1")
+SCENARIO_CONFIG=$(realpath "$1") || exit 1
 SCENARIO_NAME=$(basename "$(dirname "${SCENARIO_CONFIG}")")
-
 
 echo "Generating patches for scenario: ${SCENARIO_NAME}"
 if [ -d ${SCENARIO_NAME} ]; then
@@ -34,6 +33,7 @@ fi
 
 start-cli build "${SCENARIO_CONFIG}" && \
 start-cli repair "${SCENARIO_CONFIG}" \
+  --timeout-repair ${TIMEOUT_SEARCH} \
   --no-terminate-early \
   --output ${SCENARIO_NAME} \
   --seed ${SEED} \
