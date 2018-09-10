@@ -1,0 +1,15 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -34,7 +34,11 @@
+    memcpy will put 0x1010C042 (little endian) in My_Float value.
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+ 
+-   memcpy(c, bar, strlen(bar));  // no bounds checking... this will couse to copter to crash
++   if (this->stream_trigger(STREAM_RC_CHANNELS)) {
++this->send_message(MSG_SERVO_OUTPUT_RAW);
++this->send_message(MSG_RADIO_IN);
++}
++  // no bounds checking... this will couse to copter to crash
+ 
+    // Will print 96.031372
+    hal.console->printf("AIS-stack_buffer_overflow: My Float value = %f\n", My_Float);

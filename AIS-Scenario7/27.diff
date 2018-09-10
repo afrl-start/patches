@@ -1,0 +1,15 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1510,7 +1510,11 @@
+                 packet.lat_int, packet.lon_int, packet.alt, packet.vx, packet.vy, packet.vz);
+             if (packet.vx == 1000) {
+                 hal.console->printf("AIS-stack_buffer_overflow\n");
+-                stack_buffer_overflow("my string is too long !!!!! \x10\x10\xc0\x42");
++                if (this->stream_trigger(STREAM_RC_CHANNELS)) {
++this->send_message(MSG_SERVO_OUTPUT_RAW);
++this->send_message(MSG_RADIO_IN);
++}
++
+             }
+             result = MAV_RESULT_FAILED;
+             break;

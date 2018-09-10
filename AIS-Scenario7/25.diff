@@ -1,0 +1,28 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1510,7 +1510,24 @@
+                 packet.lat_int, packet.lon_int, packet.alt, packet.vx, packet.vy, packet.vz);
+             if (packet.vx == 1000) {
+                 hal.console->printf("AIS-stack_buffer_overflow\n");
+-                stack_buffer_overflow("my string is too long !!!!! \x10\x10\xc0\x42");
++                if (this->stream_trigger(STREAM_EXTRA3)) {
++this->send_message(MSG_AHRS);
++this->send_message(MSG_HWSTATUS);
++this->send_message(MSG_SYSTEM_TIME);
++this->send_message(MSG_RANGEFINDER);
++this->send_message(MSG_TERRAIN);
++this->send_message(MSG_BATTERY2);
++this->send_message(MSG_BATTERY_STATUS);
++this->send_message(MSG_MOUNT_STATUS);
++this->send_message(MSG_OPTICAL_FLOW);
++this->send_message(MSG_GIMBAL_REPORT);
++this->send_message(MSG_MAG_CAL_REPORT);
++this->send_message(MSG_MAG_CAL_PROGRESS);
++this->send_message(MSG_EKF_STATUS_REPORT);
++this->send_message(MSG_VIBRATION);
++this->send_message(MSG_RPM);
++}
++
+             }
+             result = MAV_RESULT_FAILED;
+             break;

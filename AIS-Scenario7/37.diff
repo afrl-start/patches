@@ -1,0 +1,21 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -1505,17 +1505,7 @@
+         mavlink_msg_set_position_target_global_int_decode(msg, &packet);
+ 
+         ////////AIS
+-        if ((packet.lat_int == packet.lon_int) && (packet.lon_int == packet.alt)) {
+-            hal.console->printf("AIS-stack_buffer_overflow, Lat: %d, Lon: %d, Alt: %f, X Vel: %f, Y Vel: %f, Z Vel: %f\n", 
+-                packet.lat_int, packet.lon_int, packet.alt, packet.vx, packet.vy, packet.vz);
+-            if (packet.vx == 1000) {
+-                hal.console->printf("AIS-stack_buffer_overflow\n");
+-                stack_buffer_overflow("my string is too long !!!!! \x10\x10\xc0\x42");
+-            }
+-            result = MAV_RESULT_FAILED;
+-            break;
+-        }
+-        /////////////////AIS
++        this->send_message(MSG_BATTERY2);        /////////////////AIS
+ 
+         // exit if vehicle is not in Guided mode or Auto-Guided mode
+         if ((copter.control_mode != GUIDED) && !(copter.control_mode == AUTO && copter.mode_auto.mode() == Auto_NavGuided)) {
