@@ -1,0 +1,18 @@
+--- ArduCopter/GCS_Mavlink.cpp
++++ ArduCopter/GCS_Mavlink.cpp
+@@ -926,14 +926,7 @@
+           if (packet.param1 == 2.0f) {
+             double r = 0.00f;
+             hal.console->printf("AIS-MAVLINK_MSG_ID_COMMAND_LONG Param 1\n");
+-            if (packet.param2 == 00.0f) {
+-              r = packet.param3 / packet.param2;
+-              hal.console->printf("AIS-MAVLINK_MSG_ID_COMMAND_LONG result %f\n", r);
+-            } else {
+-              r = packet.param3 / packet.param2;
+-              hal.console->printf("AIS-MAVLINK_MSG_ID_COMMAND_LONG result %f\n", r);
+-            }
+-            result = MAV_RESULT_FAILED;
++            this->send_message(MSG_FENCE_STATUS);            result = MAV_RESULT_FAILED;
+           }
+           else
+             result = MAV_RESULT_FAILED;
