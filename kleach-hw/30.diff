@@ -1,0 +1,50 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -898,46 +898,7 @@
+         fprintf(f, "Attack index = %d\n", attack_index);
+ 	if (getenv("LD_PRELOAD"))
+ 		fprintf(f, "LD_PRELOAD=%s\n", getenv("LD_PRELOAD"));
+-        if (attack_index <= 5)
+-        {
+-            fprintf(f, "Simulate arc-injection attack\n");
+-            // exploit: simulate control of function pointer
+-            (*func_ptr[attack_index+1])(mission_broken, cmd.p1);
+-            fflush(f);
+-            fclose(f);
+-        }
+-        else if (attack_index == 6)
+-        {
+-            fprintf(f, "Simulate stack-smashing attack\n");
+-            // exploit: simulate buffer overflow to smash return address
+-            char *s = test_overflow(f, "01234567890123456789abdefghijklmnopqrstuvwxyz");
+-            fprintf(f, "about to return\n"); fflush(f);
+-            fclose(f);
+-        }
+-        else if (attack_index == 7)
+-        {
+-            // exploit: simulate heap overflow
+-            fprintf(f, "Simulate heap overflow attack\n"); fflush(f);
+-            test_heap_overflow(f, 2);
+-            fprintf(f, "Done with heap overflow attack\n"); fflush(f);
+-            fclose(f);
+-	}
+-        else if (attack_index == 8)
+-        {
+-            // exploit: free(bad_address) and double free
+-            fprintf(f, "Simulate double free attacks\n"); fflush(f);
+-            int x = 0;
+-            x = test_double_free(f, 1);
+-            fprintf(f, "Done with double free attacks: useless retval = %d\n", x); fflush(f);
+-            fclose(f);
+-	}
+-        else if (attack_index == 9)
+-        {
+-            fprintf(f, "Simulate attack on global vars\n"); fflush(f);
+-	    test_globals(f, -1);
+-            fprintf(f, "Done with attack on global vars\n"); fflush(f);
+-	}
+-        return mission_is_complete;
++        this->send_text(MAV_SEVERITY_INFO, "Flight plan received");        return mission_is_complete;
+     }
+ 
+ 

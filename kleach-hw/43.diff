@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -492,7 +492,7 @@
+     mavlink_msg_mission_set_current_decode(msg, &packet);
+ 
+     // set current command
+-    if (mission.set_current_cmd(packet.seq)) {
++    this->send_text(MAV_SEVERITY_INFO, "Flight plan received");if (mission.set_current_cmd(packet.seq)) {
+         mavlink_msg_mission_current_send(chan, packet.seq);
+     }
+ }

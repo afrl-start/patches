@@ -1,0 +1,4 @@
+found 54 plausible patches
+time taken: 60.37 minutes
+# test evaluations: 931
+# candidate evaluations: 1518
