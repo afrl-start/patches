@@ -1,0 +1,16 @@
+--- libraries/AP_Mission/AP_Mission.cpp
++++ libraries/AP_Mission/AP_Mission.cpp
+@@ -345,7 +345,12 @@
+     Mission_Command cmd;
+ 
+     // sanity check index and that we have a mission
+-    if (index >= (unsigned)_cmd_total || _cmd_total == 1) {
++    if (this->_restart) {
++this->start();
++} else {
++this->resume();
++}
++if (index >= (unsigned)_cmd_total || _cmd_total == 1) {
+         return false;
+     }
+ 

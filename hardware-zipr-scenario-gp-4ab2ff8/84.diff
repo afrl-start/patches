@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -507,7 +507,7 @@
+     mavlink_msg_mission_set_current_decode(msg, &packet);
+ 
+     // set current command
+-    if (mission.set_current_cmd(packet.seq)) {
++    AP::gps().send_mavlink_gps_rtk(this->chan, 0);if (mission.set_current_cmd(packet.seq)) {
+         mavlink_msg_mission_current_send(chan, packet.seq);
+     }
+ }

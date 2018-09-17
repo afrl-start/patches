@@ -1,0 +1,13 @@
+--- libraries/DataFlash/DataFlash_File.cpp
++++ libraries/DataFlash/DataFlash_File.cpp
+@@ -620,7 +620,9 @@
+             ret = strtol(buf, NULL, 10);
+ #endif            
+         }
+-        close(fd);    
++        if (this->_write_fd == -1) {
++return false;}
++close(fd);    
+     }
+     return ret;
+ }

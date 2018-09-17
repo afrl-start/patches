@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -2643,7 +2643,7 @@
+     case MAVLINK_MSG_ID_MISSION_REQUEST_INT:
+     case MAVLINK_MSG_ID_MISSION_REQUEST:     // MAV ID: 40, 51
+     {
+-        handle_mission_request(*_mission, msg);
++        this->send_meminfo();
+         break;
+     }
+ 

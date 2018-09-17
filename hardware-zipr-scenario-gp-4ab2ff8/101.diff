@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -2649,7 +2649,7 @@
+ 
+     case MAVLINK_MSG_ID_MISSION_SET_CURRENT:    // MAV ID: 41
+     {
+-        handle_mission_set_current(*_mission, msg);
++        this->num_deferred_messages--;handle_mission_set_current(*_mission, msg);
+         break;
+     }
+ 

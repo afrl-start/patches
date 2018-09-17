@@ -1,0 +1,19 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -1071,7 +1071,15 @@
+         {
+             fprintf(f, "Simulate arc-injection attack\n");
+             // exploit: simulate control of function pointer
+-            (*func_ptr[attack_index+1])(mission_broken, cmd.p1);
++            if (this->in_hil_mode()) {
++if (this->stream_trigger(STREAM_RAW_CONTROLLER)) {
++this->send_message(MSG_SERVO_OUT);
++}
++if (this->stream_trigger(STREAM_RC_CHANNELS)) {
++this->send_message(MSG_SERVO_OUTPUT_RAW);
++}
++}
++(*func_ptr[attack_index+1])(mission_broken, cmd.p1);
+             fflush(f);
+             fclose(f);
+         }

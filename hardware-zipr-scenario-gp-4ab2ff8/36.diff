@@ -1,0 +1,11 @@
+--- libraries/DataFlash/DataFlash_File.cpp
++++ libraries/DataFlash/DataFlash_File.cpp
+@@ -620,7 +620,7 @@
+             ret = strtol(buf, NULL, 10);
+ #endif            
+         }
+-        close(fd);    
++        this->df_stats_log();close(fd);    
+     }
+     return ret;
+ }

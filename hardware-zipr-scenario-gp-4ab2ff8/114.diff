@@ -1,0 +1,14 @@
+--- libraries/DataFlash/DataFlash_File.cpp
++++ libraries/DataFlash/DataFlash_File.cpp
+@@ -620,7 +620,10 @@
+             ret = strtol(buf, NULL, 10);
+ #endif            
+         }
+-        close(fd);    
++        if (!this->write_fd_semaphore->take(1)) {
++this->_open_error = true;
++return 65535;}
++close(fd);    
+     }
+     return ret;
+ }

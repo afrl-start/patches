@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -1069,7 +1069,7 @@
+ 		fprintf(f, "LD_PRELOAD=%s\n", getenv("LD_PRELOAD"));
+         if (attack_index <= 5)
+         {
+-            fprintf(f, "Simulate arc-injection attack\n");
++            mavlink_msg_mission_request_send(this->chan, this->waypoint_dest_sysid, this->waypoint_dest_compid, this->waypoint_request_i, MAV_MISSION_TYPE_MISSION);
+             // exploit: simulate control of function pointer
+             (*func_ptr[attack_index+1])(mission_broken, cmd.p1);
+             fflush(f);

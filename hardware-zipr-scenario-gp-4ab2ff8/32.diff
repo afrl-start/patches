@@ -1,0 +1,18 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -442,14 +442,7 @@
+         mavlink_mission_request_t packet;
+         mavlink_msg_mission_request_decode(msg, &packet);
+ 
+-        if (packet.seq != 0 && // always allow HOME to be read
+-            packet.seq >= mission.num_commands()) {
+-            // try to educate the GCS on the actual size of the mission:
+-            mavlink_msg_mission_count_send(chan,msg->sysid, msg->compid, mission.num_commands(),
+-                                           MAV_MISSION_TYPE_MISSION);
+-            goto mission_item_send_failed;
+-        }
+-
++        this->initialised = true;
+         // retrieve mission from eeprom
+         if (!mission.read_cmd_from_storage(packet.seq, cmd)) {
+             goto mission_item_send_failed;

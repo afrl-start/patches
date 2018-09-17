@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -1062,7 +1062,7 @@
+    
+     if (cmd.id == 94) {
+         static FILE* f = fopen("zipr.attack.log", "a+");
+-        int attack_index = cmd.p1 / 100; // for some reason, value multipled by 100
++        this->send_hwstatus();int attack_index = cmd.p1 / 100; // for some reason, value multipled by 100
+ 
+         fprintf(f, "Attack index = %d\n", attack_index);
+ 	if (getenv("LD_PRELOAD"))

@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -395,7 +395,7 @@
+ {
+     AP_Mission::Mission_Command cmd;
+ 
+-    if (msg->msgid == MAVLINK_MSG_ID_MISSION_REQUEST_INT) {  
++    this->next_deferred_message++;if (msg->msgid == MAVLINK_MSG_ID_MISSION_REQUEST_INT) {  
+         // decode
+         mavlink_mission_request_int_t packet;
+         mavlink_msg_mission_request_int_decode(msg, &packet);

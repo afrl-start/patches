@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -447,7 +447,7 @@
+             // try to educate the GCS on the actual size of the mission:
+             mavlink_msg_mission_count_send(chan,msg->sysid, msg->compid, mission.num_commands(),
+                                            MAV_MISSION_TYPE_MISSION);
+-            goto mission_item_send_failed;
++            this->queued_param_send();
+         }
+ 
+         // retrieve mission from eeprom

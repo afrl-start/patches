@@ -1,0 +1,11 @@
+--- libraries/AP_Mission/AP_Mission.cpp
++++ libraries/AP_Mission/AP_Mission.cpp
+@@ -665,7 +665,7 @@
+ 
+     case MAV_CMD_NAV_CONTINUE_AND_CHANGE_ALT:           // MAV ID: 30
+         copy_location = true;                           // lat/lng used for heading lock
+-        cmd.p1 = packet.param1;                         // Climb/Descend
++                                 // Climb/Descend
+                         // 0 = Neutral, cmd complete at +/- 5 of indicated alt.
+                         // 1 = Climb, cmd complete at or above indicated alt.
+                         // 2 = Descend, cmd complete at or below indicated alt.

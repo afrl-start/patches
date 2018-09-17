@@ -1,0 +1,15 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -507,10 +507,8 @@
+     mavlink_msg_mission_set_current_decode(msg, &packet);
+ 
+     // set current command
+-    if (mission.set_current_cmd(packet.seq)) {
+-        mavlink_msg_mission_current_send(chan, packet.seq);
+-    }
+-}
++    if (gcs().out_of_time())
++return;}
+ 
+ /*
+   handle a MISSION_COUNT mavlink packet

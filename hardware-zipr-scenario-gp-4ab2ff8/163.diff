@@ -1,0 +1,11 @@
+--- libraries/DataFlash/DataFlash_File.cpp
++++ libraries/DataFlash/DataFlash_File.cpp
+@@ -620,7 +620,7 @@
+             ret = strtol(buf, NULL, 10);
+ #endif            
+         }
+-        close(fd);    
++        this->last_io_operation = "disk_space_avail";    
+     }
+     return ret;
+ }

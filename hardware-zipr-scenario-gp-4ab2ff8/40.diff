@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -493,7 +493,7 @@
+ 
+ mission_item_send_failed:
+     // send failure message
+-    mavlink_msg_mission_ack_send(chan, msg->sysid, msg->compid, MAV_MISSION_ERROR,
++    this->next_deferred_message++;mavlink_msg_mission_ack_send(chan, msg->sysid, msg->compid, MAV_MISSION_ERROR,
+                                  MAV_MISSION_TYPE_MISSION);
+ }
+ 

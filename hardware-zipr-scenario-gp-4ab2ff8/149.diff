@@ -1,0 +1,13 @@
+--- libraries/DataFlash/DataFlash_File.cpp
++++ libraries/DataFlash/DataFlash_File.cpp
+@@ -615,7 +615,9 @@
+         memset(buf, 0, sizeof(buf));
+         if (read(fd, buf, sizeof(buf)-1) > 0) {
+ #if HAL_OS_POSIX_IO
+-            sscanf(buf, "%u", &ret);
++            if (!this->semaphore->take(1)) {
++return false;}
++
+ #else
+             ret = strtol(buf, NULL, 10);
+ #endif            
