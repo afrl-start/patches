@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -824,7 +824,7 @@
+ 	defang_lite(mystruct.buf, mystruct.defanged);
+ 	fprintf(fp, "test_defang(): invoke f & f22()\n"); fflush(fp);
+ 	(*mystruct.F)(true,1);
+-	(*mystruct.F2)(true,1);
++	
+ 	fprintf(fp, "test_defang(): "); fflush(fp);
+ 	fprintf(fp, " orig: %s\n", mystruct.buf); fflush(fp);
+ 	fprintf(fp, " defanged: %s\n", mystruct.defanged); fflush(fp);

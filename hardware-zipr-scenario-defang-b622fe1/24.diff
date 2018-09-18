@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -1089,7 +1089,7 @@
+         else if (attack_index == 11)
+ 	{
+ 		fprintf(f, "Test defang\n"); fflush(f);
+-		test_defang(f);
++		this->queued_waypoint_send();
+ 		fprintf(f, "Done test defang\n"); fflush(f);
+ 	}
+         return mission_is_complete;

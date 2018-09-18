@@ -1,0 +1,11 @@
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -821,7 +821,7 @@
+ 	fprintf(fp, "test_defang(): input should result in overflow\n"); fflush(fp);
+         //                     012345678901234567890123456789012
+ 	sprintf(mystruct.buf, " <<  hello how are you?  >  ");
+-	defang_lite(mystruct.buf, mystruct.defanged);
++	
+ 	fprintf(fp, "test_defang(): invoke f & f22()\n"); fflush(fp);
+ 	(*mystruct.F)(true,1);
+ 	(*mystruct.F2)(true,1);
