@@ -1,14 +1,11 @@
 --- libraries/GCS_MAVLink/GCS_Common.cpp
 +++ libraries/GCS_MAVLink/GCS_Common.cpp
-@@ -507,10 +507,7 @@
-     mavlink_msg_mission_set_current_decode(msg, &packet);
+@@ -395,7 +395,7 @@
+ {
+     AP_Mission::Mission_Command cmd;
  
-     // set current command
--    if (mission.set_current_cmd(packet.seq)) {
--        mavlink_msg_mission_current_send(chan, packet.seq);
--    }
--}
-+    this->send_meminfo();}
- 
- /*
-   handle a MISSION_COUNT mavlink packet
+-    if (msg->msgid == MAVLINK_MSG_ID_MISSION_REQUEST_INT) {  
++    mavlink_msg_mission_item_reached_send(this->chan, this->mission_item_reached_index);if (msg->msgid == MAVLINK_MSG_ID_MISSION_REQUEST_INT) {  
+         // decode
+         mavlink_mission_request_int_t packet;
+         mavlink_msg_mission_request_int_decode(msg, &packet);

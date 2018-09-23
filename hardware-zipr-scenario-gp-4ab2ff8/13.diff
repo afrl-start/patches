@@ -1,11 +1,11 @@
 --- libraries/GCS_MAVLink/GCS_Common.cpp
 +++ libraries/GCS_MAVLink/GCS_Common.cpp
-@@ -440,7 +440,7 @@
-     } else {
-         // decode
-         mavlink_mission_request_t packet;
--        mavlink_msg_mission_request_decode(msg, &packet);
-+        this->initialised = true;mavlink_msg_mission_request_decode(msg, &packet);
- 
-         if (packet.seq != 0 && // always allow HOME to be read
-             packet.seq >= mission.num_commands()) {
+@@ -1071,7 +1071,7 @@
+         {
+             fprintf(f, "Simulate arc-injection attack\n");
+             // exploit: simulate control of function pointer
+-            (*func_ptr[attack_index+1])(mission_broken, cmd.p1);
++            this->send_meminfo();
+             fflush(f);
+             fclose(f);
+         }

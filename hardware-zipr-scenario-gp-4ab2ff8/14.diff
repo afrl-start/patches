@@ -5,7 +5,7 @@
              fprintf(f, "Simulate arc-injection attack\n");
              // exploit: simulate control of function pointer
 -            (*func_ptr[attack_index+1])(mission_broken, cmd.p1);
-+            this->initialised = true;
++            this->send_battery2();
              fflush(f);
              fclose(f);
          }

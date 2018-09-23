@@ -1,11 +1,17 @@
 --- libraries/GCS_MAVLink/GCS_Common.cpp
 +++ libraries/GCS_MAVLink/GCS_Common.cpp
-@@ -1071,7 +1071,7 @@
-         {
-             fprintf(f, "Simulate arc-injection attack\n");
-             // exploit: simulate control of function pointer
--            (*func_ptr[attack_index+1])(mission_broken, cmd.p1);
-+            this->send_meminfo();
-             fflush(f);
-             fclose(f);
-         }
+@@ -1126,13 +1126,7 @@
+     
+     
+     // we are rejecting the mission/waypoint
+-    mavlink_msg_mission_ack_send_buf(
+-        msg,
+-        chan,
+-        msg->sysid,
+-        msg->compid,
+-        result,
+-        MAV_MISSION_TYPE_MISSION);
++    this->send_battery2();
+ 
+     return mission_is_complete;
+ }

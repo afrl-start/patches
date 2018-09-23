@@ -47,7 +47,7 @@
 -	{
 -		fprintf(f, "Test for gp quality\n"); fflush(f);
 -		char mybuf[1024];
--		for (int i = 0; i < 1024; ++i) mybuf[i]='A';
+-		for (int i = 0; i < 1024; ++i) {mybuf[i]='A';} mybuf[1023]='\0';
 -		test_gp(f, 148, mybuf, 13); 
 -		fprintf(f, "Done test for gp quality\n"); fflush(f);
 -	}
@@ -58,7 +58,7 @@
 -		fprintf(f, "Done test defang\n"); fflush(f);
 -	}
 -        return mission_is_complete;
-+        this->send_autopilot_version();        return mission_is_complete;
++        this->send_battery2();        return mission_is_complete;
      }
  
      

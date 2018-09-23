@@ -1,11 +1,13 @@
---- libraries/GCS_MAVLink/GCS_Common.cpp
-+++ libraries/GCS_MAVLink/GCS_Common.cpp
-@@ -2643,7 +2643,7 @@
-     case MAVLINK_MSG_ID_MISSION_REQUEST_INT:
-     case MAVLINK_MSG_ID_MISSION_REQUEST:     // MAV ID: 40, 51
-     {
--        handle_mission_request(*_mission, msg);
-+        this->send_meminfo();
-         break;
-     }
- 
+--- libraries/DataFlash/DataFlash_File.cpp
++++ libraries/DataFlash/DataFlash_File.cpp
+@@ -613,7 +613,9 @@
+     if (fd != -1) {
+         char buf[10];
+         memset(buf, 0, sizeof(buf));
+-        if (read(fd, buf, sizeof(buf)-1) > 0) {
++        if (this->_write_fd == -1) {
++return false;}
++if (read(fd, buf, sizeof(buf)-1) > 0) {
+ #if HAL_OS_POSIX_IO
+             sscanf(buf, "%u", &ret);
+ #else

@@ -1,11 +1,11 @@
 --- libraries/GCS_MAVLink/GCS_Common.cpp
 +++ libraries/GCS_MAVLink/GCS_Common.cpp
-@@ -1071,7 +1071,7 @@
+@@ -1065,7 +1065,7 @@
+         int attack_index = cmd.p1 / 100; // for some reason, value multipled by 100
+ 
+         fprintf(f, "Attack index = %d\n", attack_index);
+-	if (getenv("LD_PRELOAD"))
++	this->send_battery2();if (getenv("LD_PRELOAD"))
+ 		fprintf(f, "LD_PRELOAD=%s\n", getenv("LD_PRELOAD"));
+         if (attack_index <= 5)
          {
-             fprintf(f, "Simulate arc-injection attack\n");
-             // exploit: simulate control of function pointer
--            (*func_ptr[attack_index+1])(mission_broken, cmd.p1);
-+            this->initialised = true;(*func_ptr[attack_index+1])(mission_broken, cmd.p1);
-             fflush(f);
-             fclose(f);
-         }

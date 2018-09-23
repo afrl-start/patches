@@ -1,13 +1,11 @@
---- libraries/DataFlash/DataFlash_File.cpp
-+++ libraries/DataFlash/DataFlash_File.cpp
-@@ -613,7 +613,9 @@
-     if (fd != -1) {
-         char buf[10];
-         memset(buf, 0, sizeof(buf));
--        if (read(fd, buf, sizeof(buf)-1) > 0) {
-+        if (this->_open_error) {
-+return true;}
-+if (read(fd, buf, sizeof(buf)-1) > 0) {
- #if HAL_OS_POSIX_IO
-             sscanf(buf, "%u", &ret);
- #else
+--- libraries/GCS_MAVLink/GCS_Common.cpp
++++ libraries/GCS_MAVLink/GCS_Common.cpp
+@@ -445,7 +445,7 @@
+         if (packet.seq != 0 && // always allow HOME to be read
+             packet.seq >= mission.num_commands()) {
+             // try to educate the GCS on the actual size of the mission:
+-            mavlink_msg_mission_count_send(chan,msg->sysid, msg->compid, mission.num_commands(),
++            this->send_battery2();mavlink_msg_mission_count_send(chan,msg->sysid, msg->compid, mission.num_commands(),
+                                            MAV_MISSION_TYPE_MISSION);
+             goto mission_item_send_failed;
+         }

@@ -1,12 +1,11 @@
---- libraries/GCS_MAVLink/GCS_Common.cpp
-+++ libraries/GCS_MAVLink/GCS_Common.cpp
-@@ -493,8 +493,7 @@
+--- libraries/AP_Mission/AP_Mission.cpp
++++ libraries/AP_Mission/AP_Mission.cpp
+@@ -345,7 +345,7 @@
+     Mission_Command cmd;
  
- mission_item_send_failed:
-     // send failure message
--    mavlink_msg_mission_ack_send(chan, msg->sysid, msg->compid, MAV_MISSION_ERROR,
--                                 MAV_MISSION_TYPE_MISSION);
-+    this->send_servo_output_raw();
- }
+     // sanity check index and that we have a mission
+-    if (index >= (unsigned)_cmd_total || _cmd_total == 1) {
++    this->_prev_nav_cmd_id = 0;if (index >= (unsigned)_cmd_total || _cmd_total == 1) {
+         return false;
+     }
  
- /*
